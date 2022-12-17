@@ -1,0 +1,898 @@
+//print words in stars...
+// author- Eshaan Walia
+#include<stdio.h>
+#include<string.h>
+int line1(char c);
+int line2(char c);
+int line3(char c);
+int line4(char c);
+int line5(char c);
+int line6(char c);
+int line7(char c);
+//main fuction begins. here characters are checked and printed line by line...
+int main()
+{   int lim;
+    printf("Please enter your word...\n");
+	char wor[1000];
+	gets(wor);
+    puts(wor);
+	int i;
+	for(i=0;wor[i]!=NULL;i++)
+	{  
+	 if(wor[i]>='a' && wor[i]<='z')
+		{  wor[i]= wor[i]-32;
+	    }
+	}
+    for (int n=1;n<=7;n++)
+    {
+    for(int a=0;wor[a]!=NULL;a++)
+    {
+    	switch(n)
+    	{
+    		case 1:
+    			line1(wor[a]);
+    			break;
+    		case 2:
+    			line2(wor[a]);
+    			break;
+    		case 3:
+    			line3(wor[a]);
+    			break;
+    		case 4:
+    			line4(wor[a]);
+    			break;
+    		case 5:
+    			line5(wor[a]);
+    			break;
+			case 6:
+    			line6(wor[a]);
+    			break;
+    		case 7:
+    			line7(wor[a]);
+    			break;
+		}
+    	
+    	
+		}printf("\n");
+    }
+}
+//prints first line of each character...
+int line1(char c)
+{
+	switch(c)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("  @@@    ");
+		break;
+		case 'B' :
+			printf("@@@@@    ");
+		break;
+		case 'C' :
+			printf("  @@@    ");
+		break;
+		case 'D' :
+			printf("@@@@@    ");
+		break;
+		case 'E' :
+			printf("@@@@@@@  ");
+		break;
+		case 'F' :
+			printf("@@@@@@@  ");
+		break;
+		case 'G' :
+			printf("  @@@@    ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("    @@   ");
+		break;
+		case 'K' :
+			printf("@@  @@   ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@      @  ");
+		break;
+		case 'N' :
+			printf("@@    @@  ");
+		break;
+		case 'O' :
+			printf("  @@@    ");
+		break;
+		case 'P' :
+			printf("@@@@@    ");
+		break;
+		case 'Q' :
+			printf("  @@@    ");
+		break;
+		case 'R' :
+			printf("@@@@@    ");
+		break;
+		case 'S' :
+			printf(" @@@@@   ");
+		break;
+		case 'T' :
+			printf("@@@@@@@@  ");
+		break;
+		case 'U' :
+			printf("@@    @@  ");
+		break;
+		case 'V' :
+			printf("@@      @@  ");
+		break;
+		case 'W' :
+			printf("@@           @@  ");
+		break;
+		case 'X' :
+			printf("@@   @@  ");
+		break;
+		case 'Y' :
+			printf("@@    @@  ");
+		break;
+		case 'Z' :
+			printf("@@@@@@@  ");
+		break;
+		case '0' :
+			printf(" ****   ");
+		break;
+		case '1' :
+			printf("  **    ");
+		break;
+		case '2' :
+			printf(" ****   ");
+		break;
+		case '3' :
+			printf(" ****   ");
+		break;
+		case '4' :
+			printf(" **  **  ");
+		break;
+		case '5' :
+			printf("******  ");
+		break;
+		case '6' :
+			printf(" ****   ");
+		break;
+		case '7' :
+			printf("******  ");
+		break;
+		case '8' :
+			printf(" ****   ");
+		break;
+		case '9' :
+			printf(" ****   ");
+		break;
+		default:
+			printf("");	
+	}
+}
+// prints second line of each character...
+int line2(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf(" @@@@@   ");
+		break;
+		case 'B' :
+			printf("@@@@@@   ");
+		break;
+		case 'C' :
+			printf(" @@@@@   ");
+		break;
+		case 'D' :
+			printf("@@@@@@   ");
+		break;
+		case 'E' :
+			printf("@@       ");
+		break;
+		case 'F' :
+			printf("@@       ");
+		break;
+		case 'G' :
+			printf(" @@@@@@   ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("    @@   ");
+		break;
+		case 'K' :
+			printf("@@ @@    ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@@    @@  ");
+		break;
+		case 'N' :
+			printf("@@@   @@  ");
+		break;
+		case 'O' :
+			printf(" @@@@@   ");
+		break;
+		case 'P' :
+			printf("@@@@@@   ");
+		break;
+		case 'Q' :
+			printf(" @@@@@   ");
+		break;
+		case 'R' :
+			printf("@@@@@@   ");
+		break;
+		case 'S' :
+			printf("@@   @@  ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf("@@    @@  ");
+		break;
+		case 'V' :
+			printf(" @@    @@   ");
+		break;
+		case 'W' :
+			printf(" @@         @@   ");
+		break;
+		case 'X' :
+			printf(" @@ @@   ");
+		break;
+		case 'Y' :
+			printf(" @@  @@   ");
+		break;
+		case 'Z' :
+			printf("     @@  ");
+		break;
+        case '0' :
+			printf("**  ***  ");
+		break;
+		case '1' :
+			printf(" ***    ");
+		break;
+		case '2' :
+			printf("**   **  ");
+		break;
+		case '3' :
+			printf("**   **  ");
+		break;
+		case '4' :
+			printf("**   **  ");
+		break;
+		case '5' :
+			printf("**      ");
+		break;
+		case '6' :
+			printf("**      ");
+		break;
+		case '7' :
+			printf("   **   ");
+		break;
+		case '8' :
+			printf("**   **  ");
+		break;
+		case '9' :
+			printf("**   **  ");
+		break;
+		default:
+			printf("");	
+	}
+}
+//prints 3rd line of character...
+int line3(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("@@   @@  ");
+		break;
+		case 'B' :
+			printf("@@   @@  ");
+		break;
+		case 'C' :
+			printf("@@@   @  ");
+		break;
+		case 'D' :
+			printf("@@  @@@  ");
+		break;
+		case 'E' :
+			printf("@@       ");
+		break;
+		case 'F' :
+			printf("@@       ");
+		break;
+		case 'G' :
+			printf("@@@       ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("    @@   ");
+		break;
+		case 'K' :
+			printf("@@@@     ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@@@  @@@  ");
+		break;
+		case 'N' :
+			printf("@@@@  @@  ");
+		break;
+		case 'O' :
+			printf("@@   @@  ");
+		break;
+		case 'P' :
+			printf("@@   @@  ");
+		break;
+		case 'Q' :
+			printf("@@   @@  ");
+		break;
+		case 'R' :
+			printf("@@   @@  ");
+		break;
+		case 'S' :
+			printf("@@       ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf("@@    @@  ");
+		break;
+		case 'V' :
+			printf(" @@    @@   ");
+		break;
+		case 'W' :
+			printf(" @@         @@   ");
+		break;
+		case 'X' :
+			printf("  @@@    ");
+		break;
+		case 'Y' :
+			printf("  @@@@    ");
+		break;
+		case 'Z' :
+			printf("    @@   ");
+		break;
+		case '0' :
+			printf("** ** **  ");
+		break;
+		case '1' :
+			printf("  **    ");
+		break;
+		case '2' :
+			printf("   **   ");
+		break;
+		case '3' :
+			printf("  ***   ");
+		break;
+		case '4' :
+			printf("******  ");
+		break;
+		case '5' :
+			printf("****** ");
+		break;
+		case '6' :
+			printf("****** ");
+		break;
+		case '7' :
+			printf("  **    ");
+		break;
+		case '8' :
+			printf(" ****   ");
+		break;
+		case '9' :
+			printf(" *****  ");
+		break;
+		default:
+			printf("");	
+	}
+}
+//prints 4th line of character
+int line4(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("@@   @@  ");
+		break;
+		case 'B' :
+			printf("@@@@@@   ");
+		break;
+		case 'C' :
+			printf("@@       ");
+		break;
+		case 'D' :
+			printf("@@   @@  ");
+		break;
+		case 'E' :
+			printf("@@@@@    ");
+		break;
+		case 'F' :
+			printf("@@@@@    ");
+		break;
+		case 'G' :
+			printf("@@   @@@  ");
+		break;
+		case 'H' :
+			printf("@@@@@@@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("    @@   ");
+		break;
+		case 'K' :
+			printf("@@@@     ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@@@@@@@@  ");
+		break;
+		case 'N' :
+			printf("@@@@@@@@  ");
+		break;
+		case 'O' :
+			printf("@@   @@  ");
+		break;
+		case 'P' :
+			printf("@@@@@@   ");
+		break;
+		case 'Q' :
+			printf("@@ @ @@  ");
+		break;
+		case 'R' :
+			printf("@@@@@@   ");
+		break;
+		case 'S' :
+			printf(" @@@@@   ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf("@@    @@  ");
+		break;
+		case 'V' :
+			printf("  @@  @@    ");
+		break;
+		case 'W' :
+			printf("  @@   @   @@    ");
+		break;
+		case 'X' :
+			printf("   @     ");
+		break;
+		case 'Y' :
+			printf("   @@     ");
+		break;
+		case 'Z' :
+			printf("   @@    ");
+		break;
+		case '0' :
+			printf("***  **  ");
+		break;
+		case '1' :
+			printf("  **    ");
+		break;
+		case '2' :
+			printf("  **    ");
+		break;
+		case '3' :
+			printf("**   **  ");
+		break;
+		case '4' :
+			printf("    **  ");
+		break;
+		case '5' :
+			printf("    **  ");
+		break;
+		case '6' :
+			printf("**   **  ");
+		break;
+		case '7' :
+			printf(" **     ");
+		break;
+		case '8' :
+			printf("**   **  ");
+		break;
+		case '9' :
+			printf("   **   ");
+		break;
+		default:
+			printf("");	
+	}
+}
+//prints the 5th line of character
+int line5(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("@@@@@@@  ");
+		break;
+		case 'B' :
+			printf("@@   @@  ");
+		break;
+		case 'C' :
+			printf("@@@   @  ");
+		break;
+		case 'D' :
+			printf("@@  @@@  ");
+		break;
+		case 'E' :
+			printf("@@       ");
+		break;
+		case 'F' :
+			printf("@@       ");
+		break;
+		case 'G' :
+			printf("@@@   @@  ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("@   @@   ");
+		break;
+		case 'K' :
+			printf("@@ @@    ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@@ @@ @@  ");
+		break;
+		case 'N' :
+			printf("@@  @@@@  ");
+		break;
+		case 'O' :
+			printf("@@   @@  ");
+		break;
+		case 'P' :
+			printf("@@       ");
+		break;
+		case 'Q' :
+			printf("@@  @@@  ");
+		break;
+		case 'R' :
+			printf("@@ @@    ");
+		break;
+		case 'S' :
+			printf("     @@  ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf("@@    @@  ");
+		break;
+		case 'V' :
+			printf("  @@  @@    ");
+		break;
+		case 'W' :
+			printf("  @@  @@@  @@    ");
+		break;
+		case 'X' :
+			printf("  @@@    ");
+		break;
+		case 'Y' :
+			printf("  @@      ");
+		break;
+		case 'Z' :
+			printf("  @@     ");
+		break;
+        case '0' :
+			printf(" ****   ");
+		break;
+		case '1' :
+			printf("******  ");
+		break;
+		case '2' :
+			printf("******  ");
+		break;
+		case '3' :
+			printf(" ****   ");
+		break;
+		case '4' :
+			printf("    **  ");
+		break;
+		case '5' :
+			printf("****** ");
+		break;
+		case '6' :
+			printf(" ****   ");
+		break;
+		case '7' :
+			printf("**      ");
+		break;
+		case '8' :
+			printf(" ****   ");
+		break;
+		case '9' :
+			printf("  **    ");
+		break;
+		default:
+			printf("");	
+	}
+}
+//prints the 6th line of character
+int line6(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("@@   @@  ");
+		break;
+		case 'B' :
+			printf("@@@@@@@  ");
+		break;
+		case 'C' :
+			printf(" @@@@@   ");
+		break;
+		case 'D' :
+			printf("@@@@@@   ");
+		break;
+		case 'E' :
+			printf("@@       ");
+		break;
+		case 'F' :
+			printf("@@       ");
+		break;
+		case 'G' :
+			printf(" @@@@@@   ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf("@@  @@   ");
+		break;
+		case 'K' :
+			printf("@@  @@   ");
+		break;
+		case 'L' :
+			printf("@@       ");
+		break;
+		case 'M' :
+			printf("@@    @@  ");
+		break;
+		case 'N' :
+			printf("@@   @@@  ");
+		break;
+		case 'O' :
+			printf(" @@@@@   ");
+		break;
+		case 'P' :
+			printf("@@       ");
+		break;
+		case 'Q' :
+			printf(" @@@@@   ");
+		break;
+		case 'R' :
+			printf("@@  @@   ");
+		break;
+		case 'S' :
+			printf("@@   @@  ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf(" @@  @@   ");
+		break;
+		case 'V' :
+			printf("   @@@@     ");
+		break;
+		case 'W' :
+			printf("   @@@@ @@@@     ");
+		break;
+		case 'X' :
+			printf(" @@ @@   ");
+		break;
+		case 'Y' :
+			printf(" @@       ");
+		break;
+		case 'Z' :
+			printf(" @@      ");
+		break;
+        case '0' :
+			printf(" ****   ");
+		break;
+		case '1' :
+			printf("******  ");
+		break;
+		case '2' :
+			printf("******  ");
+		break;
+		case '3' :
+			printf(" ****   ");
+		break;
+		case '4' :
+			printf("    **  ");
+		break;
+		case '5' :
+			printf("****** ");
+		break;
+		case '6' :
+			printf(" ****   ");
+		break;
+		case '7' :
+			printf("**      ");
+		break;
+		case '8' :
+			printf(" ****   ");
+		break;
+		case '9' :
+			printf("  **    ");
+		break;
+		default:
+			printf("");	
+	}
+}
+//prints the 7th line of character
+int line7(char a)
+{
+	switch(a)
+	{
+		case ' ':
+		    printf("    ");
+		break;
+		case 'A' :
+			printf("@@   @@  ");
+		break;
+		case 'B' :
+			printf("@@@@@@   ");
+		break;
+		case 'C' :
+			printf("  @@@    ");
+		break;
+		case 'D' :
+			printf("@@@@@    ");
+		break;
+		case 'E' :
+			printf("@@@@@@@  ");
+		break;
+		case 'F' :
+			printf("@@       ");
+		break;
+		case 'G' :
+			printf("  @@@     ");
+		break;
+		case 'H' :
+			printf("@@   @@  ");
+		break;
+		case 'I' :
+			printf("@@  ");
+		break;
+		case 'J' :
+			printf(" @@@@    ");
+		break;
+		case 'K' :
+			printf("@@   @@  ");
+		break;
+		case 'L' :
+			printf("@@@@@@@  ");
+		break;
+		case 'M' :
+			printf("@@    @@  ");
+		break;
+		case 'N' :
+			printf("@@    @@  ");
+		break;
+		case 'O' :
+			printf("  @@@    ");
+		break;
+		case 'P' :
+			printf("@@       ");
+		break;
+		case 'Q' :
+			printf("  @@@ @  ");
+		break;
+		case 'R' :
+			printf("@@   @@  ");
+		break;
+		case 'S' :
+			printf(" @@@@@   ");
+		break;
+		case 'T' :
+			printf("   @@     ");
+		break;
+		case 'U' :
+			printf("  @@@@    ");
+		break;
+		case 'V' :
+			printf("    @@      ");
+		break;
+		case 'W' :
+			printf("    @@   @@      ");
+		break;
+		case 'X' :
+			printf("@@   @@  ");
+		break;
+		case 'Y' :
+			printf("@@        ");
+		break;
+		case 'Z' :
+			printf("@@@@@@@  ");
+		break;
+        case '0' :
+			printf(" ****   ");
+		break;
+		case '1' :
+			printf("******  ");
+		break;
+		case '2' :
+			printf("******  ");
+		break;
+		case '3' :
+			printf(" ****   ");
+		break;
+		case '4' :
+			printf("    **  ");
+		break;
+		case '5' :
+			printf("****** ");
+		break;
+		case '6' :
+			printf(" ****   ");
+		break;
+		case '7' :
+			printf("**      ");
+		break;
+		case '8' :
+			printf(" ****   ");
+		break;
+		case '9' :
+			printf("  **    ");
+		break;
+		default:
+			printf("");	
+	}
+}
