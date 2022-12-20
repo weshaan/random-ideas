@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+// author- Eshaan Walia
+// date- 8th december 2022
+
+char ch(int);
+int i,j=1;
+int wave(void);
+int line(void);
+int no=0,num;
+    
+int main()
+{
+	int op;
+	printf("Pls enter your choice of pattern...\n1.line\n2.wave\n");
+	scanf("%d",&op);
+	switch(op)
+	{
+		case 1: line(); break;
+		case 2: wave(); break;
+		default: printf("Error with input, please run the code again...");
+	}
+}
+    
+int wave()
+{
+    srand(time(0));
+	char c[12];
+	for(int f=0;f<12;f++)
+	c[f]='a';
+	
+    for(i=0;i<12;i++)
+    {
+    	j=1;
+	    while(j<=100)
+	    {
+	    	no=rand();
+	    	num=no%100;
+		    if(num<25)
+		    { 
+		    	c[i]=c[i]+num;
+		    	for(int buffer1=1;buffer1<=12345;buffer1++)
+		    	for(int buffer2=1;buffer2<=99;buffer2++)
+		    	{
+				}
+		    	for(int d=0;d<i;d++)
+	    	    printf("%c",c[d]);
+		    	printf("%c\n",c[i]);
+		    	c[i]='a';
+			} else{
+				continue;
+			} j++;
+	    }
+	    c[i]=ch(i);
+    }
+    printf("Hare Krishna")	;
+	 
+}
+
+int line()
+{
+    srand(time(0));
+	char c[12];
+	for(int f=0;f<12;f++)
+	c[f]='a';
+	
+    for(i=0;i<12;i++)
+    {
+    	j=1;
+	    while(j<=11)
+	    {
+	    	no=rand();
+	    	num=no%100;
+		    if(num<25)
+		    { 
+		    	for(int delay=1;delay<12345;delay++)
+				for(int delay2=1;delay2<300;delay2++){}
+		        system("cls");
+		    	c[i]=c[i]+num;
+		    	for(int d=0;d<i;d++)
+	    	    printf("%c",c[d]);
+		    	printf("%c\n",c[i]);
+		    	c[i]='a';
+			} else{
+				continue;
+			} j++;
+	    }
+	    c[i]=ch(i);
+    }
+    system("cls");
+    printf("Hare Krishna")	;
+	 
+}
+
+char ch(int a)
+{
+	switch(a)
+	{
+		case 0: return 'H';  break;
+		case 1: return 'a';  break;
+		case 2: return 'r';  break;
+		case 3: return 'e';  break;
+		case 4: return ' ';  break;
+		case 5: return 'K';  break;
+		case 6: return 'r';  break;
+		case 7: return 'i';  break;
+		case 8: return 's';  break;
+		case 9: return 'h';  break;
+		case 10: return 'n'; break;	
+		case 11: return 'a'; break;	
+	}
+}
