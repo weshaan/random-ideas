@@ -1,0 +1,162 @@
+// day finder for any date
+/*
+logic of code-https://youtu.be/mLD41elDRTE 
+******************************************/
+#include<stdio.h>
+#include <stdlib.h>
+//global declaration
+int d=0;
+int validInput(int a);
+int monthNumber(int a);
+int yearNumber(int a);
+int days(int a);
+//main function begins here...
+int main()
+{   printf("Please enter date in DDMMYYYY format.....\n");
+    printf("example: 03 nov 2022 would be 03112022...\n");
+    int date;
+    scanf("%d",&date);
+	validInput(date);
+// getting all values like month,year,date etc...
+	int year2=date%100;
+	int year4=date%10000;
+	int month=(date/10000)%100;
+	int dat=(date/1000000);
+	int year_number= yearNumber(year4);
+	int month_number= monthNumber(month);
+	if((year_number==69)||(month_number==69))
+	{ printf("***invalid input... code terminated***\n");
+     return 0; }
+    if((month==4)||(month==6)||(month==9)||(month==11))
+      if(dat>30)
+         { printf("***invalid input... code terminated***\n");
+     return 0; }
+    if((month==1)||(month==3)||(month==5)||(month==7)||(month==8)||(month==10)||(month==12))
+     {if(dat>31)
+         { printf("***invalid input... code terminated***\n");
+     return 0; }}
+    if(month==2)
+     {if(year4%4==0)
+	     {if(year4%100==0)
+	     	{int n2;
+	     	n2=year4/100;
+	     	if(n2%4==0)
+	     	 {if(dat>29)
+	     	 { printf("***invalid input... code terminated***\n");
+               return 0; }
+			  }
+			 }else
+			 if(dat>28)
+	     	 { printf("***invalid input... code terminated***\n");
+               return 0; }
+	     	  if(dat>29)
+	     	 { printf("***invalid input... code terminated***\n");
+               return 0; }
+		 }else
+		 if(dat>28)
+	     	 { printf("***invalid input... code terminated***\n");
+               return 0; }
+      }
+	int odd_day=year2+(year2/4)+dat+year_number+month_number;
+    int day= odd_day%7;
+    days(day);
+}
+//checks if user entered a correct date or a random number...
+int validInput(int a)
+{   int buffer=a;
+	for (;a>0;a=a/10)
+     { d++; }
+     if(d!=8){
+	   if(d!=7){
+	 printf("***invalid input... code terminated***\n");
+	 exit(0);
+     }}else 
+	 { printf("Date recieved: %d \n",buffer); }
+}
+// finds number of odd days for given month
+int monthNumber(int mn)
+{	switch(mn)
+	{   case 1:
+			return 0;
+			break;
+		case 2:
+			return 3;
+			break;
+		case 3:
+			return 3;
+			break;
+		case 4:
+			return 6;
+			break;
+		case 5:
+			return 1;
+			break;
+		case 6:
+			return 4;
+			break;
+		case 7:
+		    return 6;
+			break;
+		case 8:
+		    return 2;
+			break;
+		case 9:
+		    return 5;
+		    break;
+		case 10:
+		    return 0;
+			break;
+		case 11:
+		    return 3;
+			break;
+		case 12:
+		    return 5;
+			break;
+		default:
+		    return 69;
+	}
+}
+// finds number of odd days for the year
+int yearNumber(int yn)
+{	int cen= yn/100;
+	if(cen%4==0)
+	return 6;
+	else if(cen%4==1)
+	return 4;
+	else if(cen%4==2)
+	return 2;
+	else if(cen%4==3)
+	return 0;
+	else
+	return 69;
+}
+//finds day
+int days(int dd)
+{   
+	switch(dd)
+	{
+		case 0:
+			printf("Sunday.\n");
+			break;
+		case 1:
+			printf("Monday.\n");
+			break;
+		case 2:
+			printf("Teusday.\n");
+			break;
+		case 3:
+			printf("Wednesday.\n");
+			break;
+		case 4:
+			printf("Thursday.\n");
+			break;
+		case 5:
+			printf("Friday.\n");
+			break;
+		case 6:
+			printf("Saturday.\n");
+			break;
+		default:
+			printf("***Error 404***");
+	}
+}
