@@ -1,0 +1,157 @@
+/* this code prints a visual representation of famous recursion problem Tower of Hanoi using symbols.
+for tower of hanoi logic- https://youtu.be/5_6nsViVM00
+*********************************************************/
+#include <stdio.h>
+
+void pro(int,char b,char m,char e);   // the fuction where all major process works, using recussion.
+int countsend(char a);   // this fuction checks the begining rod and returns value where the first disk from top is placed.
+int countrec(char c);    // this fuction checks the end rod and return value where empty space from bottom is available.  
+
+char rod1[100];
+char rod2[100];
+char rod3[100];
+int value=1;
+int mover=0;
+
+int main(){
+	printf("Please enter number of disks...");
+	int ds;
+	scanf("%d",&ds);
+    value=ds;
+    for(int var=0;var<ds;var++)   //rods stored as arrays to print a visual representation. ascii value of 0 is 48.
+      {
+	  rod1[var]= 49+var ; 
+	  rod2[var]= '|';
+	  rod3[var]= '|';
+	  printf("%c ",rod1[var]);
+	  printf("%c ",rod2[var]);
+	  printf("%c \n",rod3[var]);}
+	  printf(" \n");
+	  printf("******\n");
+	  pro(ds,'A','B','C');  //fn call
+}
+
+void pro(int n, char beg, char mid, char end){
+	if(n == 1){
+		int counter1=0;         // this variable will work with the countsend() to make changes to array that is will be beggining rod.
+		int counter2=value-1;   // this variable will work with the countrec() to make changes to array that is will be end rod.
+		if(beg=='A')
+		{
+			while(1)
+			{
+				mover=countsend(rod1[counter1]);
+				if(mover==9)
+				break;
+				counter1++;
+			}
+			
+			if(end=='B'){
+				while(1)
+			{
+				mover=countrec(rod2[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod2[counter2]=rod1[counter1];
+		}
+			else if(end=='C'){
+				while(1)
+			{
+				mover=countrec(rod3[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod3[counter2]=rod1[counter1];
+		}
+		    rod1[counter1]='|';
+		}
+		if(beg=='B')
+		{
+			while(1)
+			{
+				mover=countsend(rod2[counter1]);
+				if(mover==9)
+				break;
+				counter1++;
+			}
+			
+			if(end=='A'){
+				while(1)
+			{
+				mover=countrec(rod1[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod1[counter2]=rod2[counter1];
+		}
+			else if(end=='C'){
+				while(1)
+			{
+				mover=countrec(rod3[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod3[counter2]=rod2[counter1];
+		}
+			rod2[counter1]='|';
+		}
+		if(beg=='C')
+		{
+			while(1)
+			{
+				mover=countsend(rod3[counter1]);
+				if(mover==9)
+				break;
+				counter1++;
+			}
+			if(end=='A'){
+				while(1)
+			{
+				mover=countrec(rod1[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod1[counter2]=rod3[counter1];
+		}
+			else if(end=='B'){
+				while(1)
+			{
+				mover=countrec(rod2[counter2]);
+				if(mover==9)
+				break;
+				counter2--;
+			}
+			rod2[counter2]=rod3[counter1];
+		}
+			rod3[counter1]='|';
+		}
+		for(int var=0;var<value;var++)    // printing
+          {
+          printf("%c ",rod1[var]);
+     	  printf("%c ",rod2[var]);
+    	  printf("%c \n",rod3[var]);}
+    	  printf(" \n");
+   	      printf("%c --> %c\n", beg, end);
+   	      printf("******\n");
+	}else{
+		pro(n-1, beg, end, mid);
+		pro(1, beg, mid, end);
+		pro(n-1, mid, beg, end);
+	}
+}
+int countsend(char nu1)
+{
+        for(int noo=49;noo<=57;noo++)
+		{if (nu1==noo)
+		    return 9;}
+}
+int countrec(char num1)
+{
+	if(num1=='|')
+	   return 9;
+}
