@@ -1,5 +1,7 @@
 /* this code prints a visual representation of famous recursion problem Tower of Hanoi using symbols.
 for tower of hanoi logic- https://youtu.be/5_6nsViVM00
+Author- Eshaan Walia
+date- nov, 2022
 *********************************************************/
 #include <stdio.h>
 
