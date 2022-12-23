@@ -1,0 +1,64 @@
+/* using character depth and density to create a waves like illusion...
+author- Eshaan Walia
+date- 10th december 2022
+**************************************
+logic- work with 2 arrays. a base array and a character array. 
+character array stores all characters of different sizes.
+base_array[n]=char_array[n+1]
+this can require many debugs.
+so i worked with:
+base_array[n]=char_array[n]
+char_array[n]=char_array[n+1]
+infinity loop the above statements.
+if char_array has 10 elements, then base_array should have 20(or x*10 depending on how wide pattern you want)
+for every odd line, reverse the order of elements in character_array.
+even line: "abcd"
+odd line:  "dcba"
+to avoid errors, i simply load the char_array in reverse order into the base_array for odd lines. 
+*************************************
+also tried to work with system("cls");
+- made output cleaner but too slow to cause an illusion.
+***************************************************************************************************/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+char format[]="N&@$#9876543210?!abc;:/=-,._ ";  //character array   // set of characters in decreasing density.
+int size=sizeof(format);
+int line_number=1;               //helps to identify when a new line needs to be printed
+void printer();
+
+int main()
+{	
+    printer();
+}
+
+void printer()
+{
+	char waves[58];       // base array
+	
+	for(int n=1;;n++)
+	{
+		for(int a=0;a<58;a++)
+		if(n%2==1)
+		{   if(a>=29)
+	  	    waves[a]=format[a-29]; 
+	  	    else
+    	    waves[a]=format[a];
+	    }
+	    else
+	    {	if(a>=29)
+	  	    waves[a]=format[57-a]; 
+	  	    else
+    	    waves[a]=format[28-a];
+		}
+		for(int delay=0;delay<=12345;delay++)             // adding delay to control the speed of the pattern
+		for(int delay2=0;delay2<=430;delay2++){}    //inc/dec 430 to make the code slower/faster
+	    puts(waves);
+	    char end=format[0];
+	    for(int b=0;b<28;b++)
+	       format[b]=format[b+1];
+	       format[28]=end;
+	       
+	}
+}
