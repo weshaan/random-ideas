@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<time.h>
+// author: Eshaan Walia
+int main(void) {
+	int a=3;
+	while(a--){
+  printf("extracting data.\n");
+  for(int delay=1;delay<=12345;delay++)
+  for(int delay2=1;delay2<=15555;delay2++){}
+  system("cls");
+  
+  printf("extracting data..\n");
+  for(int delay=1;delay<=12345;delay++)
+  for(int delay2=1;delay2<=15555;delay2++){}
+  system("cls");
+  
+  printf("extracting data...\n");
+  for(int delay=1;delay<=12345;delay++)
+  for(int delay2=1;delay2<=15555;delay2++){}
+  system("cls");
+  
+  printf("extracting data....\n");
+  for(int delay=1;delay<=12345;delay++)
+  for(int delay2=1;delay2<=15555;delay2++){}
+  system("cls");
+}
+  while(1)
+    {int no=rand();
+	if(no%2==1)
+	printf("1");
+	else 
+	printf("0");
+	for(int delay=1;delay<=12345;delay++)
+    for(int delay2=1;delay2<=5;delay2++){}
+	}
+}
