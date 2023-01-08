@@ -1,0 +1,487 @@
+/*tic tac toe game in c
+******************************************************
+features coded:										                   *
+1. symbolic representaion of board and checker		   *
+2. result system									                   *
+3. tie break condition								               *
+4. replay											                       *
+5. main menu										                     *
+6. BOT to play with	2 levels						             *
+******************************************************
+//author: Eshaan Walia
+//date: 2nd jan, 2023
+********************************************************************************************************/
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+char board[3][3];	//	tic tac toe board
+char symbol=' ';	//  'X' for player 1,'O' for player 2
+int n=1;			//  number of turns(helps determine which player's turn)
+int d=1;			//  condition iteration variable to determine if game is over or not
+char dg[9][9];		// 	design of box
+char bot_level[100];//  level of bot
+void draw();		//  draws board
+int input(int);		//  takes input
+int result();		//  checks for winning conditions
+int tie_break();	//  checks for tie breaker
+void design();		//	improves design of board
+int main_menu();	//	makes main menu of game
+void endsrn();		//	endscreen for game exit
+int bot();
+char box_open[1155]="********************************************************************************************************\n**                                                                                                    **\n**      @@@@@@@@  @@    @@@        @@@@@@@@    @@@      @@@        @@@@@@@@    @@@    @@@@@@@         **\n**         @@     @@   @@@@@          @@      @@@@@    @@@@@          @@      @@@@@   @@              **\n**         @@     @@  @@@   @         @@     @@   @@  @@@   @         @@     @@   @@  @@              **\n**         @@     @@  @@              @@     @@   @@  @@              @@     @@   @@  @@@@@           **\n**         @@     @@  @@@   @         @@     @@@@@@@  @@@   @         @@     @@   @@  @@              **\n**         @@     @@   @@@@@          @@     @@   @@   @@@@@          @@      @@@@@   @@              **\n**         @@     @@    @@@           @@     @@   @@    @@@           @@       @@@    @@@@@@@         **\n**                                                                          <by- Eshaan Walia>        **\n**      ________________________________________________________________________________________      **";
+char box_close[945]="**      ________________________________________________________________________________________      **\n**                                                                                                    **\n**           ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###            **\n**            ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##           **\n**             #     ##   ##   #     ##   ##   #     ##   ##   #     ##   ##   #     ##   ##          **\n**            ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##           **\n**           ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###            **\n**                                                                                                    **\n********************************************************************************************************";
+					//help make box of game
+
+int main(){
+	int p=49;		//inilialise default values, coded to resemble keyboard's numpad
+	for(int a=0;a<3;a++)
+	for(int b=0;b<3;b++){
+	board[2-a][b]=p;
+	p++;}
+	int vs=main_menu(); 	//main menu
+	//replay
+	int replay=1;
+	while(replay){
+	design();
+	
+	if(vs==11){			// if verses human
+	n=1;
+	//run game
+	while(d){
+		int plr=n%2;  // plr is player (1 or 2)
+		if(plr==1)
+		symbol='X';
+		else
+		symbol='O';
+		draw();
+		printf("Player %d's turn!\n",2-plr);
+		int in;
+		int buff=7;
+		while(buff==7){
+		scanf("%d",&in);
+		buff=input(in);
+		}
+		n++; 
+		system("cls");
+		d=result();		//check if game won
+		if(d==0){
+			system("cls");
+			draw();
+			printf("GG,Player %d won!\n",2-plr);
+			break;
+		}
+		d=tie_break();	//check if game is tied
+		if(d==0){
+			system("cls");
+			draw();
+			printf("GG,The game was a tie.\n");
+			break;
+		}
+		}
+	}else if(vs==22){		//if verses bot
+	n=1;
+	while(d){
+		design();
+		draw();
+		int plr=n%2;  // plr is player (1 or 2)
+		if(plr==1)
+		symbol='X';
+		else
+		symbol='O';
+		if(plr==1){
+		printf("Player %d's turn!\n",plr);
+		int in;
+		int buff=7;
+		while(buff==7){
+		scanf("%d",&in);
+		buff=input(in);
+		}
+		}
+		else
+		bot();
+		
+		n++; 
+		system("cls");
+		d=result();		//check if game won
+		if(d==0){
+			system("cls");
+			design();
+			draw();
+			if(plr==1)
+			printf("GG,Player %d won!\n",plr);
+			else{
+			printf("GG, bot won!\n");
+			}
+			break;
+		}
+		d=tie_break();	//check if game is tied
+		if(d==0){
+			system("cls");
+			design();
+			draw();
+			printf("GG,The game was a tie.\n");
+			break;
+		}
+		
+	}	
+	}else{		// random value: restart game
+	main_menu();
+	}
+	printf("\n**************************************************************************\n");
+	printf("Would you like to replay? \n1.	yes\n2.	no\n");		//check if user wants to replay
+	scanf("%d",&replay);
+	if((replay>2)||(replay<1)){
+		printf("Invalid option, game over.\n");
+		return 0;
+	}else if(replay==2){
+		system("cls");
+		endsrn();
+	}
+	else if(replay==1){
+		system("cls");
+		printf("Ah shit,Here we go again...\n");
+		d=1;											// if yes, reset board
+		int p=49;
+		for(int a=0;a<3;a++)
+		for(int b=0;b<3;b++){
+		board[2-a][b]=p;
+		p++;}
+	}
+	replay=2-replay;
+	}
+}
+// draw the board, 9 variales each box to inprove checker design
+void draw(){
+	puts(box_open);
+	printf("**                              Enter number to claim box position.                                   **\n");
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[0][0],dg[0][1],dg[0][2],dg[1][0],dg[1][1],dg[1][2],dg[2][0],dg[2][1],dg[2][2]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[0][3],dg[0][8],dg[0][4],dg[1][3],dg[1][8],dg[1][4],dg[2][3],dg[2][8],dg[2][4]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[0][5],dg[0][6],dg[0][7],dg[1][5],dg[1][6],dg[1][7],dg[2][5],dg[2][6],dg[2][7]);
+	printf("**                                        -----------------                                           **\n");
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[3][0],dg[3][1],dg[3][2],dg[4][0],dg[4][1],dg[4][2],dg[5][0],dg[5][1],dg[5][2]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[3][3],dg[3][8],dg[3][4],dg[4][3],dg[4][8],dg[4][4],dg[5][3],dg[5][8],dg[5][4]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[3][5],dg[3][6],dg[3][7],dg[4][5],dg[4][6],dg[4][7],dg[5][5],dg[5][6],dg[5][7]);
+	printf("**                                        -----------------                                           **\n");
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[6][0],dg[6][1],dg[6][2],dg[7][0],dg[7][1],dg[7][2],dg[8][0],dg[8][1],dg[8][2]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[6][3],dg[6][8],dg[6][4],dg[7][3],dg[7][8],dg[7][4],dg[8][3],dg[8][8],dg[8][4]);
+	printf("**                                         %c%c%c | %c%c%c | %c%c%c                                            **\n",dg[6][5],dg[6][6],dg[6][7],dg[7][5],dg[7][6],dg[7][7],dg[8][5],dg[8][6],dg[8][7]);
+	printf("**                                                                                                    **\n");
+	printf("********************************************************************************************************\n");
+	printf("\n");
+}
+// take input
+int input(int a){
+	switch(a){
+		case 1:
+			if(board[2][0]=='1'){
+			board[2][0]=symbol; return 8;}
+			else return 7; break;
+		case 2:
+			if(board[2][1]=='2'){
+			board[2][1]=symbol; return 8;}
+			else return 7; break;
+		case 3:
+			if(board[2][2]=='3'){
+			board[2][2]=symbol; return 8;}
+			else return 7; break;
+		case 4:
+			if(board[1][0]=='4'){
+			board[1][0]=symbol; return 8;}
+			else return 7; break;
+		case 5:
+			if(board[1][1]=='5'){
+			board[1][1]=symbol; return 8;}
+			else return 7; break;
+		case 6:
+			if(board[1][2]=='6'){
+			board[1][2]=symbol; return 8;}
+			else return 7; break;
+		case 7:
+			if(board[0][0]=='7'){
+			board[0][0]=symbol; return 8;}
+			else return 7; break;
+		case 8:
+			if(board[0][1]=='8'){
+			board[0][1]=symbol; return 8;}
+			else return 7; break;
+		case 9:
+			if(board[0][2]=='9'){
+			board[0][2]=symbol; return 8;}
+			else return 7; break;
+	} design();
+}
+// check game over
+int result(){
+	for(int a=0;a<3;a++){
+		if((board[a][0]==board[a][1])&&(board[a][1]==board[a][2])){
+			printf("GAME OVER!\n");
+			return 0;
+		}
+		if((board[0][a]==board[1][a])&&(board[1][a]==board[2][a])){
+			printf("GAME OVER!\n");
+			return 0;
+		}
+		if((board[0][0]==board[1][1])&&(board[1][1]==board[2][2])){
+			printf("GAME OVER!\n");
+			return 0;
+		}
+		if((board[0][2]==board[1][1])&&(board[1][1]==board[2][0])){
+			printf("GAME OVER!\n");
+			return 0;
+		}
+	}return 1;
+}
+//check if game was a tie
+int tie_break(){
+	int p=49;
+	for(int a=0;a<3;a++)
+	for(int b=0;b<3;b++){
+	if(board[2-a][b]==p)
+	return 1;
+	else	
+	p++;}return 0;
+}
+// to inprove design of board: quality of life improvement by making symbols bigger
+void design(){
+	for(int a=0;a<3;a++)
+	for(int b=0;b<3;b++){
+	
+		if(board[a][b]=='X'){		// symbol 'X'
+		dg[(3*a)+b][0]='\\';	
+		dg[(3*a)+b][2]='/';	
+		dg[(3*a)+b][5]='/';	
+		dg[(3*a)+b][7]='\\';
+		dg[(3*a)+b][8]='X';	
+		}
+		if(board[a][b]=='O'){		// symbol 'O'
+		dg[(3*a)+b][0]='/';	
+		dg[(3*a)+b][1]='O';	
+		dg[(3*a)+b][2]='\\';	
+		dg[(3*a)+b][3]='O';	
+		dg[(3*a)+b][4]='O';	
+		dg[(3*a)+b][5]='\\';	
+		dg[(3*a)+b][6]='O';	
+		dg[(3*a)+b][7]='/';
+		dg[(3*a)+b][8]=' ';
+		}
+		if((board[a][b]=='1')||(board[a][b]=='2')||(board[a][b]=='3')||(board[a][b]=='4')||(board[a][b]=='5')||(board[a][b]=='6')||(board[a][b]=='7')||(board[a][b]=='8')||(board[a][b]=='9')){
+		dg[(3*a)+b][0]=' ';			// Empty box
+		dg[(3*a)+b][1]=' ';	
+		dg[(3*a)+b][2]=' ';	
+		dg[(3*a)+b][3]=' ';	
+		dg[(3*a)+b][4]=' ';	
+		dg[(3*a)+b][5]=' ';	
+		dg[(3*a)+b][6]=' ';	
+		dg[(3*a)+b][7]=' ';
+		dg[(3*a)+b][8]=board[a][b];			
+		}
+	}
+}
+// main menu for the game
+int main_menu(){
+	char choice[100];		//start screen
+	puts(box_open);
+	printf("**                                                                                                    **\n");
+	printf("**                                      > Enter 1 to start <                                          **\n");
+	printf("**                                      > Enter 2 for help <                                          **\n");
+	printf("**                                 > Enter anything else to exit <                                    **\n");	
+	printf("**                                                                                                    **\n");
+	puts(box_close);
+	gets(choice);
+	system("cls");
+	switch(choice[0]){
+		case '1':			//play mode screen
+	puts(box_open);
+	printf("**                                                                                                    **\n");
+	printf("**                                           <SELECT MODE>                                            **\n");
+	printf("**                                  > Enter 1 for human vs human <                                    **\n");
+	printf("**                                   > Enter 2 for human vs bot <                                     **\n");	
+	printf("**                                                                                                    **\n");
+	puts(box_close);
+	gets(choice);
+	system("cls");
+	if(choice[0]=='1')		//play vs human
+		return 11;
+	if(choice[0]=='2'){		//play vs bot
+	puts(box_open);
+	printf("**                                                                                                    **\n");
+	printf("**                                  < Select difficulty level >                                       **\n");
+	printf("**                                      > Enter 1 for easy <                                          **\n");
+	printf("**                                      > Enter 2 for hard <                                          **\n");	
+	printf("**                                                                                                    **\n");
+	puts(box_close);
+	gets(bot_level);
+	system("cls");
+		return 22;
+		}
+		else
+		return 0;
+	break;
+		case '2':			//help screen
+	puts(box_open);
+	printf("**                                                                                                    **\n");
+	printf("**                                              <HELP>                                                **\n");
+	printf("**                   1. The game is played on a grid that's 3 squares by 3 squares.                   **\n");
+	printf("**                   2. You are X,your friend (or the computer) is O.Players take turns               **\n");	
+	printf("**                      putting their marks in empty squares.                                         **\n");
+	printf("**                   3. The first player to get 3 of her marks in a row (up, down, across,            **\n");
+	printf("**                      or diagonally) is the winner.                                                 **\n");
+	printf("**                   4. When all 9 squares are full, the game is over.If no player has 3              **\n");	
+	printf("**                      marks in a row, the game ends in a tie.                                       **\n");
+	printf("**                                                                                                    **\n");
+	printf("**                                   > Enter anything to go back <                                    **\n");
+	printf("**      ________________________________________________________________________________________      **\n");
+	printf("**                                                                                                    **\n");
+	printf("********************************************************************************************************\n");
+	char a[100];
+	gets(a);
+	system("cls");	
+	main_menu();
+	
+	break;
+		default:			//exit screen
+		endsrn();
+	}
+}
+// game's endscreen
+void endsrn(){
+	puts(box_open);
+	printf("**                                                                                                    **\n");
+	printf("**                                                                                                    **\n");
+	printf("**                                       > Thx for playin! <                                          **\n");
+	printf("**                                   < Have a good day, adios >                                       **\n");	
+	printf("**                                                                                                    **\n");
+	puts(box_close);
+	exit(0);
+}
+// bot to play with
+int bot(){
+	
+	int c1=0,c2=0;
+	//check to attack
+	for(int a=0;a<3;a++){
+		if(((board[a][0]!='X')&&(board[a][0]!='O'))||((board[a][1]!='X')&&(board[a][1]!='O'))||((board[a][2]!='X')&&(board[a][2]!='O')))
+		if(((board[a][c1=0]=='O')&&(board[a][c2=2]=='O'))||((board[a][c1=1]=='O')&&(board[a][c2=2]=='O'))||((board[a][c1=0]=='O')&&(board[a][c2=1]=='O'))){
+			board[a][3-(c1+c2)]=symbol;
+			return 0;
+		}
+		if(((board[0][a]!='X')&&(board[0][a]!='O'))||((board[1][a]!='X')&&(board[1][a]!='O'))||((board[2][a]!='X')&&(board[2][a]!='O')))
+		if(((board[c1=0][a]=='O')&&(board[c2=2][a]=='O'))||((board[c1=1][a]=='O')&&(board[c2=2][a]=='O'))||((board[c1=0][a]=='O')&&(board[c2=1][a]=='O'))){
+			board[3-(c1+c2)][a]=symbol;
+			return 0;
+		}
+	}		
+		if(((board[0][0]!='X')&&(board[0][0]!='O'))||((board[2][2]!='X')&&(board[2][2]!='O'))||((board[1][1]!='X')&&(board[1][1]!='O')))
+		if(((board[c1=0][0]=='O')&&(board[c2=2][2]=='O'))||((board[c1=0][0]=='O')&&(board[c2=1][1]=='O'))||((board[c1=1][1]=='O')&&(board[c2=2][2]=='O'))){
+			board[3-(c1+c2)][3-(c1+c2)]=symbol;
+			return 0;
+		}
+		if(((board[0][2]!='X')&&(board[0][2]!='O'))||((board[1][1]!='X')&&(board[1][1]!='O'))||((board[2][0]!='X')&&(board[2][0]!='O')))
+		if(((board[c1=0][2]=='O')&&(board[c2=1][1]=='O'))||((board[c1=0][2]=='O')&&(board[c2=2][0]=='O'))||((board[c1=1][1]=='O')&&(board[c2=2][0]=='O'))){
+			board[3-(c1+c2)][(c1+c2)-1]=symbol;
+			return 0;
+		}
+	//check to defend
+	for(int a=0;a<3;a++){
+		if(((board[a][0]!='X')&&(board[a][0]!='O'))||((board[a][1]!='X')&&(board[a][1]!='O'))||((board[a][2]!='X')&&(board[a][2]!='O')))
+		if(((board[a][c1=0]=='X')&&(board[a][c2=2]=='X'))||((board[a][c1=1]=='X')&&(board[a][c2=2]=='X'))||((board[a][c1=0]=='X')&&(board[a][c2=1]=='X'))){
+			board[a][3-(c1+c2)]=symbol;
+			return 0;
+		}
+		if(((board[0][a]!='X')&&(board[0][a]!='O'))||((board[1][a]!='X')&&(board[1][a]!='O'))||((board[2][a]!='X')&&(board[2][a]!='O')))
+		if(((board[c1=0][a]=='X')&&(board[c2=2][a]=='X'))||((board[c1=1][a]=='X')&&(board[c2=2][a]=='X'))||((board[c1=0][a]=='X')&&(board[c2=1][a]=='X'))){
+			board[3-(c1+c2)][a]=symbol;
+			return 0;
+		}
+	}		
+		if(((board[0][0]!='X')&&(board[0][0]!='O'))||((board[2][2]!='X')&&(board[2][2]!='O'))||((board[1][1]!='X')&&(board[1][1]!='O')))
+		if(((board[c1=0][0]=='X')&&(board[c2=2][2]=='X'))||((board[c1=0][0]=='X')&&(board[c2=1][1]=='X'))||((board[c1=1][1]=='X')&&(board[c2=2][2]=='X'))){
+			board[3-(c1+c2)][3-(c1+c2)]=symbol;
+			return 0;
+		}
+		if(((board[0][2]!='X')&&(board[0][2]!='O'))||((board[1][1]!='X')&&(board[1][1]!='O'))||((board[2][0]!='X')&&(board[2][0]!='O')))
+		if(((board[c1=0][2]=='X')&&(board[c2=1][1]=='X'))||((board[c1=0][2]=='X')&&(board[c2=2][0]=='X'))||((board[c1=1][1]=='X')&&(board[c2=2][0]=='X'))){
+			board[3-(c1+c2)][(c1+c2)-1]=symbol;
+			return 0;
+		}
+		// if random move 
+	switch(bot_level[0]){
+		case '2':
+		while(1){
+			if((board[1][1]!='X')&&(board[1][1]!='O')){
+				board[1][1]=symbol;
+				break;
+			}
+			srand(time(0));
+			c1=rand()%2;
+			c2=rand()%2;
+			c1=c1*2;
+			c2=c2*2;	
+			if((board[0][0]=='X')&&(board[2][2]=='X')){
+				int loll=rand()%2;
+				if(loll==0)
+					c1=1;
+				else
+					c2=1;	
+				if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+					board[c1][c2]=symbol;
+					break;
+				}
+			}
+			if((board[2][0]=='X')&&(board[0][2]=='X')){
+				int loll=rand()%2;
+				if(loll==0)
+					c1=1;
+				else
+					c2=1;	
+				if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+					board[c1][c2]=symbol;
+					break;
+				}
+			}
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+				board[c1][c2]=symbol;
+				break;
+			}
+			c1=rand()%2;
+			c2=rand()%2;
+			c1=c1*2;
+			c2=c2*2;	
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+				board[c1][c2]=symbol;
+				break;
+			}
+			c1=rand()%2;
+			c2=rand()%2;
+			c1=c1*2;
+			c2=c2*2;	
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+				board[c1][c2]=symbol;
+				break;
+			}
+			int loll=rand()%2;
+			if(loll==0)
+				c1=1;
+			else
+				c2=1;	
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+				board[c1][c2]=symbol;
+				break;
+			}
+		}	break;
+		case '1':
+			while(1){
+			srand(time(0));
+			c1=rand()%3;
+			c2=rand()%3;	
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+				board[c1][c2]=symbol;
+				break;
+			}
+		}	break;
+		default:
+			printf("INVALID DIFFICULTY LEVEL, BOT REFUSED TO PLAY LOL.");
+			exit(0);
+	}
+}
