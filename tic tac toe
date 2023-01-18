@@ -1,12 +1,12 @@
 /*tic tac toe game in c
 ******************************************************
-features coded:										                   *
-1. symbolic representaion of board and checker		   *
-2. result system									                   *
-3. tie break condition								               *
-4. replay											                       *
-5. main menu										                     *
-6. BOT to play with	2 levels						             *
+features coded:					     *
+1. symbolic representaion of board and checker	     *
+2. result system				     *
+3. tie break condition				     *
+4. replay					     *
+5. main menu					     *
+6. BOT to play with-2 levels	    		     *
 ******************************************************
 //author: Eshaan Walia
 //date: 2nd jan, 2023
@@ -17,10 +17,10 @@ features coded:										                   *
 
 char board[3][3];	//	tic tac toe board
 char symbol=' ';	//  'X' for player 1,'O' for player 2
-int n=1;			//  number of turns(helps determine which player's turn)
-int d=1;			//  condition iteration variable to determine if game is over or not
+int n=1;		//  number of turns(helps determine which player's turn)
+int d=1;		//  condition iteration variable to determine if game is over or not
 char dg[9][9];		// 	design of box
-char bot_level[100];//  level of bot
+char bot_level[100];	//  level of bot
 void draw();		//  draws board
 int input(int);		//  takes input
 int result();		//  checks for winning conditions
@@ -42,11 +42,10 @@ int main(){
 	int vs=main_menu(); 	//main menu
 	//replay
 	int replay=1;
+	int bot_toggle=1;
 	while(replay){
 	design();
-	
 	if(vs==11){			// if verses human
-	n=1;
 	//run game
 	while(d){
 		int plr=n%2;  // plr is player (1 or 2)
@@ -54,6 +53,7 @@ int main(){
 		symbol='X';
 		else
 		symbol='O';
+		design();
 		draw();
 		printf("Player %d's turn!\n",2-plr);
 		int in;
@@ -67,6 +67,7 @@ int main(){
 		d=result();		//check if game won
 		if(d==0){
 			system("cls");
+			design();
 			draw();
 			printf("GG,Player %d won!\n",2-plr);
 			break;
@@ -74,13 +75,14 @@ int main(){
 		d=tie_break();	//check if game is tied
 		if(d==0){
 			system("cls");
+			design();
 			draw();
 			printf("GG,The game was a tie.\n");
 			break;
 		}
 		}
 	}else if(vs==22){		//if verses bot
-	n=1;
+	n=bot_toggle;
 	while(d){
 		design();
 		draw();
@@ -93,7 +95,7 @@ int main(){
 		printf("Player %d's turn!\n",plr);
 		int in;
 		int buff=7;
-		while(buff==7){
+		while(buff==7){		//retake value if incorrect value entered
 		scanf("%d",&in);
 		buff=input(in);
 		}
@@ -149,6 +151,7 @@ int main(){
 		p++;}
 	}
 	replay=2-replay;
+	bot_toggle++;
 	}
 }
 // draw the board, 9 variales each box to inprove checker design
@@ -357,7 +360,7 @@ void endsrn(){
 }
 // bot to play with
 int bot(){
-	
+	//first we check if at 3 line is forming. final box should be empty and respective other two should have same symbol
 	int c1=0,c2=0;
 	//check to attack
 	for(int a=0;a<3;a++){
@@ -407,9 +410,12 @@ int bot(){
 		}
 		// if random move 
 	switch(bot_level[0]){
-		case '2':
+		/* easy difficulty: make random move for free spaces, detect attacking or defending 3 opportunities
+		   hard difficulty: make moves on priority- middle>corners>sides. if corner capture causes lose then take side.
+		   ******************************************************************************/
+		case '2':			//bot dificulty hard
 		while(1){
-			if((board[1][1]!='X')&&(board[1][1]!='O')){
+			if((board[1][1]!='X')&&(board[1][1]!='O')){		//pick middle if free
 				board[1][1]=symbol;
 				break;
 			}
@@ -418,8 +424,8 @@ int bot(){
 			c2=rand()%2;
 			c1=c1*2;
 			c2=c2*2;	
-			if((board[0][0]=='X')&&(board[2][2]=='X')){
-				int loll=rand()%2;
+			if((board[0][0]=='X')&&(board[2][2]=='X')){		//check is loss at first diagonal
+				int loll=rand()%2;		//force side
 				if(loll==0)
 					c1=1;
 				else
@@ -429,8 +435,8 @@ int bot(){
 					break;
 				}
 			}
-			if((board[2][0]=='X')&&(board[0][2]=='X')){
-				int loll=rand()%2;
+			if((board[2][0]=='X')&&(board[0][2]=='X')){		//check if loss at second diagonal
+				int loll=rand()%2;		//force side
 				if(loll==0)
 					c1=1;
 				else
@@ -440,27 +446,57 @@ int bot(){
 					break;
 				}
 			}
-			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
+			//check from the (move1=4, move2=9 trick)
+			if(board[1][0]=='X'){
+				if((board[c1][0]!='X')&&(board[c1][0]!='O')){
+					board[c1][0]=symbol;
+					break;
+				}
+			}
+			if(board[1][2]=='X'){
+				if((board[c1][2]!='X')&&(board[c1][2]!='O')){
+					board[c1][2]=symbol;
+					break;
+				}
+			}
+			if(board[0][1]=='X'){
+				if((board[0][c2]!='X')&&(board[0][c2]!='O')){
+					board[0][c2]=symbol;
+					break;
+				}
+			}
+			if(board[2][1]=='X'){
+				if((board[2][c2]!='X')&&(board[2][c2]!='O')){
+					board[2][c2]=symbol;
+					break;
+				}
+			}
+			//it no tricks, priorities diagonal
+			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){		//if empty, play diagonal
 				board[c1][c2]=symbol;
+				//force to check for available diagonal...
 				break;
 			}
-			c1=rand()%2;
-			c2=rand()%2;
-			c1=c1*2;
-			c2=c2*2;	
-			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
-				board[c1][c2]=symbol;
+			if(c1==c2){
+				if((board[2][0]!='X')&&(board[2][0]!='O')){		//if empty, play diagonal
+				board[2][0]=symbol;
 				break;
-			}
-			c1=rand()%2;
-			c2=rand()%2;
-			c1=c1*2;
-			c2=c2*2;	
-			if((board[c1][c2]!='X')&&(board[c1][c2]!='O')){
-				board[c1][c2]=symbol;
+				}
+				if((board[0][2]!='X')&&(board[0][2]!='O')){		//if empty, play diagonal
+				board[0][2]=symbol;	
 				break;
+				}
+			}else{
+				if((board[0][0]!='X')&&(board[0][0]!='O')){		//if empty, play diagonal
+				board[0][0]=symbol;	
+				break;
+				}
+				if((board[2][2]!='X')&&(board[2][2]!='O')){		//if empty, play diagonal
+				board[2][2]=symbol;
+				break;
+				}
 			}
-			int loll=rand()%2;
+			int loll=rand()%2;		//if all accupied, take side
 			if(loll==0)
 				c1=1;
 			else
@@ -470,7 +506,7 @@ int bot(){
 				break;
 			}
 		}	break;
-		case '1':
+		case '1':			//bot dificulty easy 
 			while(1){
 			srand(time(0));
 			c1=rand()%3;
