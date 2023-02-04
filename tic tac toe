@@ -1,7 +1,7 @@
 /*tic tac toe game in c
 ******************************************************
 features coded:					     *
-1. symbolic representaion of board and checker	     *
+1. symbolic representaion of board and checker       *
 2. result system				     *
 3. tie break condition				     *
 4. replay					     *
@@ -17,10 +17,10 @@ features coded:					     *
 
 char board[3][3];	//	tic tac toe board
 char symbol=' ';	//  'X' for player 1,'O' for player 2
-int n=1;		//  number of turns(helps determine which player's turn)
-int d=1;		//  condition iteration variable to determine if game is over or not
+int n=1;			//  number of turns(helps determine which player's turn)
+int d=1;			//  condition iteration variable to determine if game is over or not
 char dg[9][9];		// 	design of box
-char bot_level[100];	//  level of bot
+char bot_level[100];//  level of bot
 void draw();		//  draws board
 int input(int);		//  takes input
 int result();		//  checks for winning conditions
@@ -28,7 +28,7 @@ int tie_break();	//  checks for tie breaker
 void design();		//	improves design of board
 int main_menu();	//	makes main menu of game
 void endsrn();		//	endscreen for game exit
-int bot();
+int bot();		//	bot to play with
 char box_open[1155]="********************************************************************************************************\n**                                                                                                    **\n**      @@@@@@@@  @@    @@@        @@@@@@@@    @@@      @@@        @@@@@@@@    @@@    @@@@@@@         **\n**         @@     @@   @@@@@          @@      @@@@@    @@@@@          @@      @@@@@   @@              **\n**         @@     @@  @@@   @         @@     @@   @@  @@@   @         @@     @@   @@  @@              **\n**         @@     @@  @@              @@     @@   @@  @@              @@     @@   @@  @@@@@           **\n**         @@     @@  @@@   @         @@     @@@@@@@  @@@   @         @@     @@   @@  @@              **\n**         @@     @@   @@@@@          @@     @@   @@   @@@@@          @@      @@@@@   @@              **\n**         @@     @@    @@@           @@     @@   @@    @@@           @@       @@@    @@@@@@@         **\n**                                                                          <by- Eshaan Walia>        **\n**      ________________________________________________________________________________________      **";
 char box_close[945]="**      ________________________________________________________________________________________      **\n**                                                                                                    **\n**           ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###            **\n**            ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##           **\n**             #     ##   ##   #     ##   ##   #     ##   ##   #     ##   ##   #     ##   ##          **\n**            ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##   ###     ## ##           **\n**           ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###   ## ##     ###            **\n**                                                                                                    **\n********************************************************************************************************";
 					//help make box of game
@@ -446,7 +446,23 @@ int bot(){
 					break;
 				}
 			}
-			//check from the (move1=4, move2=9 trick)
+			//if playing offensive, try force win if possible
+//			if(board[1][1]=='O'){
+//					if(board[a][b]=='O'){
+//						
+//						if((board[a][b]!='X')&&(board[a][b]!='O')){
+//							board[a][b]=symbol;
+//							return 0;//fix that bug
+//						}
+//						}
+//						
+//						if((board[a][b]!='X')&&(board[a][b]!='O')){
+//							board[a][b]=symbol;
+//							return 0;
+//						}
+//				}
+//			}
+//			//check from the (move1=4, move2=9 trick)
 			if(board[1][0]=='X'){
 				if((board[c1][0]!='X')&&(board[c1][0]!='O')){
 					board[c1][0]=symbol;
