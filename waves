@@ -1,7 +1,7 @@
 /* using character depth and density to create a waves like illusion...
 author- Eshaan Walia
 date- 10th december 2022
-**************************************
+****************************************
 logic- work with 2 arrays. a base array and a character array. 
 character array stores all characters of different sizes.
 base_array[n]=char_array[n+1]
